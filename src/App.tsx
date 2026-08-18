@@ -28,7 +28,7 @@ function App() {
 
     <main className="dashboard">
       <section className="hero">
-        <div className="hero-copy"><span className="eyebrow">COGNITIVE SYSTEM / 01</span><h1>Train the <em>process</em>,<br/>not the answer.</h1><p>Five mathematical arenas isolate induction, mental transformation, constraint search, deduction, and cross-representation transfer. Difficulty adapts independently by domain.</p></div>
+        <div className="hero-copy"><span className="eyebrow">COGNITIVE SYSTEM / 01</span><h1>Train the <em>process</em>,<br/>not the answer.</h1><p>Eight mathematical arenas isolate induction, mental transformation, constraint search, deduction, and cross-representation transfer. Difficulty adapts independently by domain.</p></div>
         <div className="hero-mark"><Atom size={64}/><span>AXIOM ENGINE</span><strong>v0.1</strong></div>
       </section>
 
