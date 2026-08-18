@@ -1,9 +1,9 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { ModeDefinition } from '../game/types';
 
-type Props = { mode: ModeDefinition; difficulty: number; accuracy: number; onOpen: () => void };
+type Props = { mode: ModeDefinition; difficulty: number; accuracy: number; skill: number; onOpen: () => void };
 
-export function ModeCard({ mode, difficulty, accuracy, onOpen }: Props) {
+export function ModeCard({ mode, difficulty, accuracy, skill, onOpen }: Props) {
   return (
     <button className="mode-card" onClick={onOpen}>
       <div className="mode-topline"><span>{mode.shortName}</span><ArrowUpRight size={18} /></div>
@@ -11,7 +11,8 @@ export function ModeCard({ mode, difficulty, accuracy, onOpen }: Props) {
       <p>{mode.description}</p>
       <div className="mode-loop">{mode.loop}</div>
       <div className="mode-meta">
-        <span>Tier <strong>{difficulty}</strong></span>
+        <span>Load <strong>{difficulty}</strong></span>
+        <span>Skill <strong>{skill.toFixed(1)}</strong></span>
         <span>Accuracy <strong>{accuracy ? Math.round(accuracy * 100) : '—'}{accuracy ? '%' : ''}</strong></span>
       </div>
     </button>
