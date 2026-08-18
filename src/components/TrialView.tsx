@@ -12,13 +12,13 @@ export function TrialView({ mode, difficulty, onBack, onResult }: Props) {
   const [hint, setHint] = useState(false);
   const startedAt = useRef(performance.now());
   const status = submitted ? selected === trial.correctIndex : null;
-  const tierBars = useMemo(() => Array.from({ length: 8 }, (_, i) => i < difficulty), [difficulty]);
+  const tierBars = useMemo(() => Array.from({ length: 8 }, (_, i) => i < trial.difficulty), [trial.difficulty]);
 
   const submit = () => {
     if (selected === null || submitted) return;
     const elapsedMs = performance.now() - startedAt.current;
     setSubmitted(true);
-    onResult({ mode: mode.id, correct: selected === trial.correctIndex, elapsedMs, difficulty, usedHint: hint, timestamp: Date.now() });
+    onResult({ mode: mode.id, correct: selected === trial.correctIndex, elapsedMs, difficulty: trial.difficulty, usedHint: hint, timestamp: Date.now() });
   };
 
   const next = () => {
@@ -30,7 +30,7 @@ export function TrialView({ mode, difficulty, onBack, onResult }: Props) {
     <header className="trial-header">
       <button className="icon-button" onClick={onBack}><ArrowLeft size={18}/></button>
       <div><span className="eyebrow">{mode.shortName} / ADAPTIVE TRIAL</span><h2>{mode.name}</h2></div>
-      <div className="tier-indicator"><span>LOAD {difficulty}</span><div>{tierBars.map((on, i) => <i className={on ? 'on' : ''} key={i}/>)}</div></div>
+      <div className="tier-indicator"><span>LOAD {trial.difficulty}</span><div>{tierBars.map((on, i) => <i className={on ? 'on' : ''} key={i}/>)}</div></div>
     </header>
 
     <section className="trial-stage">
@@ -44,7 +44,7 @@ export function TrialView({ mode, difficulty, onBack, onResult }: Props) {
 
       {!submitted ? <div className="trial-actions"><button className="secondary" onClick={() => setHint((v) => !v)}><Lightbulb size={16}/> {hint ? 'Hide cue' : 'Reveal cue'}</button><button className="primary" disabled={selected === null} onClick={submit}>Commit answer <ChevronRight size={17}/></button></div>
       : <div className={`feedback ${status ? 'success' : 'failure'}`}><div><strong>{status ? 'Model stable.' : 'Model failed.'}</strong><p>{trial.explanation}</p></div><button className="primary" onClick={next}>Next trial <ChevronRight size={17}/></button></div>}
-      {hint && !submitted && <div className="hint">Do not calculate blindly. Identify the invariant, dependency, or state-transition rule first.</div>}
+      {hint && !submitted && <div className="hint">{trial.hint ?? 'Identify the invariant, dependency, or state-transition rule before calculating.'}</div>}
     </section>
   </main>;
 }
