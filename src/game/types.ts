@@ -1,4 +1,15 @@
-export type ModeId = 'patterns' | 'transform' | 'constraints' | 'proof' | 'orbit' | 'bayes' | 'dynamics' | 'transfer';
+export type ModeId =
+  | 'patterns'
+  | 'transform'
+  | 'constraints'
+  | 'proof'
+  | 'orbit'
+  | 'bayes'
+  | 'dynamics'
+  | 'transfer'
+  | 'hypothesis'
+  | 'branch'
+  | 'graph';
 
 export type Trial = {
   id: string;
@@ -6,6 +17,7 @@ export type Trial = {
   title: string;
   prompt: string;
   notation?: string;
+  hint?: string;
   choices: string[];
   correctIndex: number;
   explanation: string;
@@ -22,8 +34,16 @@ export type TrialResult = {
   timestamp: number;
 };
 
+export type SkillState = {
+  rating: number;
+  uncertainty: number;
+  attempts: number;
+  lastDelta: number;
+};
+
 export type Profile = {
   difficultyByMode: Record<ModeId, number>;
+  skillByMode: Record<ModeId, SkillState>;
   results: TrialResult[];
   streak: number;
   bestStreak: number;
